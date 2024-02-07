@@ -1,118 +1,77 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React, {useState} from 'react';
+import {StyleSheet, Text, View, Button,TextInput} from 'react-native';
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+const HelloWorldApp = () => {
+  const [name, setName] = useState("Prasant");
+  const [person,setPerson] = useState({name:'Nisant',age:27});
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  const clickHandler = () =>{
+    setName("Memika")
+    setPerson({name:'Prasant',age:33})
+  }
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style = {styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.boldText}>{name} Pant</Text>
+        <Text style={styles.boldText}>{person.name} is of {person.age}</Text>
+      </View>
+      <View style={styles.subContainer}>
+        <Text >Enter Name:</Text>
+        <TextInput 
+        multiline
+        style = {styles.input}
+        placeholder='e.g John Wick'
+        textAlign='center'
+        onChangeText={(value) => setName(value)} />
+
+      <Text >Enter Age:</Text>
+        <TextInput 
+        keyboardType='number-pad'
+        style = {styles.input}
+        placeholder='e.g 24'
+        textAlign='center'
+        onChangeText={(val) => setPerson({...person, age: parseInt(val)})} />
+      </View>
+      {/* <View style={[styles.header, styles.gap]}>
+        <Text style={styles.boldText}>Is Going To Hell</Text>
+      </View> */}
+      <View style={styles.buttonContainer}>
+        <Button title='Update Name' onPress={clickHandler} />
+      </View>
     </View>
   );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
+};
+export default HelloWorldApp;
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container:{
+    flex:1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  subContainer:{
+    alignItems:'center'
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  header: {
+    backgroundColor:'pink',
+    padding:20,
+    borderRadius: 10
   },
-  highlight: {
-    fontWeight: '700',
+  boldText:{
+    fontWeight: 'bold'
   },
-});
-
-export default App;
+  gap:{
+    marginTop:10
+  },
+  buttonContainer:{
+    marginTop:10
+  },
+  input:{
+    borderColor: '#777',
+    padding: 8,
+    margin: 10,
+    borderWidth:1,
+    width: 200
+  }
+})
