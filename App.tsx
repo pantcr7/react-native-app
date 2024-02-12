@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, FlatList, Dimensions } from "react-native";
+import { StyleSheet, Text, View, TextInput, FlatList, Dimensions,TouchableOpacity } from "react-native";
 
 const app = () =>{
 const [people, setPeople] = useState([
@@ -20,6 +20,13 @@ const [people, setPeople] = useState([
   {name: 'Hare', id: '14'},
   {name: 'Ram', id: '15'},
 ])
+
+const pressHanddler = (id: string) =>{
+  console.log(id)
+  setPeople((prev) => {
+    return prev.filter(person => person.id != id)
+  })
+}
 return(
   <View style = {styles.container}>
     
@@ -28,9 +35,12 @@ return(
    keyExtractor={(item) => item.id}
    data={people}
    renderItem={({ item }) => (
+    <TouchableOpacity onPress={() => pressHanddler(item.id)}>
     <View style={styles.itemContainer}>
     <Text style={styles.item}>{item.name}</Text>
+    
   </View>
+  </TouchableOpacity>
    )}
    />
     
@@ -54,7 +64,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'pink',
   },
   item:{
-    backgroundColor:'pink',
+    
     fontSize:15,
     padding:10,
  
