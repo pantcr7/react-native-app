@@ -22,7 +22,7 @@ const HelloWorldApp = () => {
         style = {styles.input}
         placeholder='e.g John Wick'
         textAlign='center'
-        onChangeText={(value) => setName(value)} />
+        onChangeText={(value) => setPerson({...person, name: value})} />
 
       <Text >Enter Age:</Text>
         <TextInput 
