@@ -1,42 +1,39 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, ScrollView } from "react-native";
+import { StyleSheet, Text, View, TextInput, FlatList, Dimensions } from "react-native";
 
 const app = () =>{
 const [people, setPeople] = useState([
-  {name: 'Shyam', key: '1'},
-  {name: 'Radhe', key: '2'},
-  {name: 'Krishna', key: '3'},
-  {name: 'Hare', key: '4'},
-  {name: 'Ram', key: '5'},
-  {name: 'Shyam', key: '6'},
-  {name: 'Radhe', key: '7'},
-  {name: 'Krishna', key: '8'},
-  {name: 'Hare', key: '9'},
-  {name: 'Ram', key: '10'},
-  {name: 'Shyam', key: '11'},
-  {name: 'Radhe', key: '12'},
-  {name: 'Krishna', key: '13'},
-  {name: 'Hare', key: '14'},
-  {name: 'Ram', key: '15'},
+  //works fine for key but for id, it works differently using
+  {name: 'Shyam', id: '1'},
+  {name: 'Radhe', id: '2'},
+  {name: 'Krishna', id: '3'},
+  {name: 'Hare', id: '4'},
+  {name: 'Ram', id: '5'},
+  {name: 'Shyam', id: '6'},
+  {name: 'Radhe', id: '7'},
+  {name: 'Krishna', id: '8'},
+  {name: 'Hare', id: '9'},
+  {name: 'Ram', id: '10'},
+  {name: 'Shyam', id: '11'},
+  {name: 'Radhe', id: '12'},
+  {name: 'Krishna', id: '13'},
+  {name: 'Hare', id: '14'},
+  {name: 'Ram', id: '15'},
 ])
 return(
   <View style = {styles.container}>
-    <ScrollView showsVerticalScrollIndicator={false}>
-    {/* {people.map((item) =>{
-      return(
-        <View key={item.key}>
-          <Text style={styles.item}>{item.name}</Text>
-        </View>
-      )
-    })} */}
-
-      {people.map(item => (
-        <View key={item.key}>
-          <Text style={styles.item}>{item.name}</Text>
-        </View>
-      
-    ))}
-    </ScrollView>
+    
+   <FlatList
+   numColumns={3}
+   keyExtractor={(item) => item.id}
+   data={people}
+   renderItem={({ item }) => (
+    <View style={styles.itemContainer}>
+    <Text style={styles.item}>{item.name}</Text>
+  </View>
+   )}
+   />
+    
   </View>
 )
 }
@@ -48,10 +45,19 @@ const styles = StyleSheet.create({
     backgroundColor:'#fff',
     paddingHorizontal:20
   },
+  itemContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 5,
+    width: (Dimensions.get('window').width - 60) / 3, // Adjust width for 3 columns
+    backgroundColor: 'pink',
+  },
   item:{
-    marginTop:20,
     backgroundColor:'pink',
-    fontSize:20,
-    padding:20
+    fontSize:15,
+    padding:10,
+ 
+    
   }
 })
