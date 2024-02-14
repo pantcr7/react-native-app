@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
         borderColor:'#bbb',
         borderRadius:10,
         borderWidth:1,
-        borderStyle:'dashed'
+        borderStyle:'dashed',
+        color:'black'
     }
 })

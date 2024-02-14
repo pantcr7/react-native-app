@@ -1,5 +1,5 @@
 import React,{ useState} from "react";
-import { StyleSheet,Text, View,FlatList } from "react-native";
+import { StyleSheet,Text, View,FlatList,Alert, TouchableWithoutFeedback, Keyboard} from "react-native";
 import Header from "./components/header";
 import TodoItem from "./components/todoiitem";
 import AddTodo from "./components/addtodo";
@@ -18,14 +18,26 @@ const app = () => {
   }
 
   const submitHandler = (text:string)=>{
-    setTodo((prev) =>{
-      return [
-        {text:text, key:Math.random().toString()},
-        ...todo
-      ]
-    })
+    if(text.length > 3){
+      setTodo((prev) =>{
+        return [
+          {text:text, key:Math.random().toString()},
+          ...todo
+        ]
+      })
+      
+    }
+    else{
+      Alert.alert('OPPS!','Must be 4 letters word or more',
+      [{text: 'Understood', onPress:() =>console.log('alert closed')}])
+    }
+  
   }
   return (
+    <TouchableWithoutFeedback onPress={() => {
+      Keyboard.dismiss();
+      //console.log("Diss");
+    }}>
     <View style={styles.container}>
       {/* header */}
       <Header />
@@ -44,6 +56,7 @@ const app = () => {
 
       </View>
     </View>
+    </TouchableWithoutFeedback>
   )
 
 }
