@@ -3,6 +3,7 @@ import { StyleSheet,Text, View,FlatList,Alert, TouchableWithoutFeedback, Keyboar
 import Header from "./components/header";
 import TodoItem from "./components/todoiitem";
 import AddTodo from "./components/addtodo";
+import Sandbox from "./components/sandbox";
 const app = () => {
   const [todo, setTodo] = useState([
     {text:"buy coffee", key:'1'},
@@ -34,6 +35,8 @@ const app = () => {
   
   }
   return (
+
+    //<Sandbox />
     <TouchableWithoutFeedback onPress={() => {
       Keyboard.dismiss();
       //console.log("Diss");
@@ -46,7 +49,7 @@ const app = () => {
         <AddTodo submitHandler = {submitHandler} />
         <View style={styles.list}>
           <FlatList showsVerticalScrollIndicator ={false}
-            data={todo}
+            data={todo} 
             renderItem={({ item }) => (
               <TodoItem item={item} pressHandler = {pressHandler} />
             )}
@@ -68,10 +71,14 @@ const styles = StyleSheet.create({
     backgroundColor:'#fff',
   },
   content:{
-    marginTop:20,
-    padding:20
+    backgroundColor:'gold',
+    marginTop:0,
+    padding:20,
+    flex:1
   },
   list:{
-
+    backgroundColor:'pink',
+    marginTop:10,
+    flex:1,
   },
 })
