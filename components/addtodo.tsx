@@ -12,14 +12,19 @@ const AddTodo:React.FC<TodoItemProps> = ({ submitHandler }) =>{
         setText(value);
 
     }
+    const emptyText = ()=>{
+        setText('')
+    }
     return(
         <View>
             <TextInput
                 style={styles.input}
                 placeholder="new todo"
                 onChangeText={(value) =>changeHandler(value)}
+                value={text}
+                placeholderTextColor="grey"
             />
-            <Button onPress={() => submitHandler(text)} title = 'Add Todo'  color ='coral'/>
+            <Button onPress={() => {submitHandler(text); emptyText()}} title = 'Add Todo'  color ='coral'/>
         </View>
     )
 }
@@ -31,7 +36,8 @@ const styles = StyleSheet.create({
         borderBottomColor:'#ddd',
         paddingVertical:6,
         paddingHorizontal:8,
-        marginBottom:10
+        marginBottom:10,
+        color:'black'
         
     }
 })

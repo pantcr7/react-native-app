@@ -1,8 +1,9 @@
 import React,{ useState} from "react";
-import { StyleSheet,Text, View,FlatList } from "react-native";
+import { StyleSheet,Text, View,FlatList,Alert, TouchableWithoutFeedback, Keyboard} from "react-native";
 import Header from "./components/header";
 import TodoItem from "./components/todoiitem";
 import AddTodo from "./components/addtodo";
+import Sandbox from "./components/sandbox";
 const app = () => {
   const [todo, setTodo] = useState([
     {text:"buy coffee", key:'1'},
@@ -18,14 +19,28 @@ const app = () => {
   }
 
   const submitHandler = (text:string)=>{
-    setTodo((prev) =>{
-      return [
-        {text:text, key:Math.random().toString()},
-        ...todo
-      ]
-    })
+    if(text.length > 3){
+      setTodo((prev) =>{
+        return [
+          {text:text, key:Math.random().toString()},
+          ...todo
+        ]
+      })
+      
+    }
+    else{
+      Alert.alert('OPPS!','Must be 4 letters word or more',
+      [{text: 'Understood', onPress:() =>console.log('alert closed')}])
+    }
+  
   }
   return (
+
+    //<Sandbox />
+    <TouchableWithoutFeedback onPress={() => {
+      Keyboard.dismiss();
+      //console.log("Diss");
+    }}>
     <View style={styles.container}>
       {/* header */}
       <Header />
@@ -34,7 +49,7 @@ const app = () => {
         <AddTodo submitHandler = {submitHandler} />
         <View style={styles.list}>
           <FlatList showsVerticalScrollIndicator ={false}
-            data={todo}
+            data={todo} 
             renderItem={({ item }) => (
               <TodoItem item={item} pressHandler = {pressHandler} />
             )}
@@ -44,6 +59,7 @@ const app = () => {
 
       </View>
     </View>
+    </TouchableWithoutFeedback>
   )
 
 }
@@ -55,10 +71,14 @@ const styles = StyleSheet.create({
     backgroundColor:'#fff',
   },
   content:{
-    marginTop:20,
-    padding:20
+    backgroundColor:'gold',
+    marginTop:0,
+    padding:20,
+    flex:1
   },
   list:{
-
+    backgroundColor:'pink',
+    marginTop:10,
+    flex:1,
   },
 })
